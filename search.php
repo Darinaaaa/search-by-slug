@@ -21,9 +21,15 @@ function search_slug($search, $query)
         true === is_admin() &&
         true === isset($query->query_vars['s']) &&
         true === str_starts_with($query->query_vars['s'], 'slug:')) {
-        $search_slug = ' \'%' . str_replace('slug:', '', $query->query_vars['s']) . '%\'';
+        $slug_name = str_replace('slug:', '', $query->query_vars['s']);
+
+        if (true === empty($slug_name)) {
+            return $search;
+        }
+
+        $slug_name = ' \'%' . $slug_name . '%\'';
         $search      = $wpdb->prepare(
-            " AND {$wpdb->posts}.post_name LIKE {$search_slug}"
+            " AND {$wpdb->posts}.post_name LIKE {$slug_name}"
         );
     }
 
