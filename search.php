@@ -28,7 +28,7 @@ function search_slug($search, $query)
         }
 
         $slug_name = ' \'%' . $slug_name . '%\'';
-        $search      = $wpdb->prepare(
+        $search    = $wpdb->prepare(
             " AND {$wpdb->posts}.post_name LIKE {$slug_name}"
         );
     }
